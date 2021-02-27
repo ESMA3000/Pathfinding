@@ -7,7 +7,7 @@ from pathfinding.core.diagonal_movement import DiagonalMovement
 from pathfinding.core.grid import Grid
 from pathfinding.finder.a_star import AStarFinder
 
-def user_trash_collector():
+def user_trash():
 
     print("\n[ESMA©]****************Pathfinder****************[ESMA©]\n")
 
@@ -15,14 +15,13 @@ def user_trash_collector():
         user_input = input("Input height and width of the graph: ")
         if re.match("[0-9]", user_input):
 
-            allow_diag = input("\nAllow diagonal movement? (y/n) (default: y): ")
-
-            if allow_diag is "n":
-                diag_movement = None
-
             the_input = user_input.split(" ")
-
             if len(the_input) is 2 and re.match("[0-9]", the_input[0]) and re.match("[0-9]", the_input[1]):
+
+                allow_diag = input("\nAllow diagonal movement? (y/n) (default: y): ")
+                if allow_diag is "n":
+                    diag_movement = None
+
                 return the_input
 
             else:
@@ -58,7 +57,7 @@ def pathfinder(matrix, diag_movement):
 init()
 diag_movement = DiagonalMovement.always
 matrix = []
-size_input = user_trash_collector()
+size_input = user_trash()
 
 if size_input is None:
     print("Incorret input!")
@@ -69,3 +68,4 @@ exit_input = input('Press enter key to exit')
 if exit_input:
     exit(0)
 
+#To-do: Tilføje muligheden for selv at vælge start og slut punkt.
