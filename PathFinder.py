@@ -19,7 +19,7 @@ def user_trash():
     try:
         user_input = input("Input height and width of the graph: ")
         the_input = user_input.split(" ")
-        if len(the_input) is 2 and re.match("[0-9]", the_input[0]) and re.match("[0-9]", the_input[1]):
+        if len(the_input) == 2 and re.match("[0-9]", the_input[0]) and re.match("[0-9]", the_input[1]):
             return the_input
         else:
             return None
@@ -29,8 +29,8 @@ def user_trash():
 def movement_input():
     try:
         allow_diag = input("\nAllow diagonal movement? (y/n) (default: y): ")
-        if len(allow_diag) is 1 and re.match("[yYnN]", allow_diag):
-            if allow_diag is "y":
+        if len(allow_diag) == 1 and re.match("[yYnN]", allow_diag):
+            if allow_diag == "y":
                 return DiagonalMovement.always
             else: 
                 return DiagonalMovement.never
@@ -73,24 +73,26 @@ def algorithm_string(pathfindingfunction):
     elif pathfindingfunction is MinimumSpanningTree:
         return "Minimum spanning tree"
 
-init()
-function_list = [AStarFinder, BestFirst, BiAStarFinder, BreadthFirstFinder, DijkstraFinder, MinimumSpanningTree]
-matrix = []
-size_input = user_trash()
-diag_movement = movement_input()
-
-if size_input is None or diag_movement is None:
-    print("Incorret input!")
-
-else:
-    map_maker(matrix, (int(size_input[0])), (int(size_input[1])))
+if __name__ == '__main__':
     
-    print(colored('\nS', 'blue') + " = start\n" + colored('E', 'magenta') + " = end\n# = obstacle\n" + colored('x', 'green') + " = path")
-    for function in function_list:
-        pathfinder(matrix, function, diag_movement)
+    init()
+    function_list = [AStarFinder, BestFirst, BiAStarFinder, BreadthFirstFinder, DijkstraFinder, MinimumSpanningTree]
+    matrix = []
+    size_input = user_trash()
+    diag_movement = movement_input()
 
-exit_input = input('Press enter key to exit')
-if exit_input:
-    exit(0)
+    if size_input is None or diag_movement is None:
+        print("Incorret input!")
+
+    else:
+        map_maker(matrix, (int(size_input[0])), (int(size_input[1])))
+        
+        print(colored('\nS', 'blue') + " = start\n" + colored('E', 'magenta') + " = end\n# = obstacle\n" + colored('x', 'green') + " = path")
+        for function in function_list:
+            pathfinder(matrix, function, diag_movement)
+
+    exit_input = input('Press enter key to exit')
+    if exit_input:
+        exit(0)
 
 #To-do: Tilføje muligheden for selv at vælge start og slut punkt.
